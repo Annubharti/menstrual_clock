@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Menstrual clock</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Snowstorm/20131208/snowstorm.js" ==""></script>
+
+
+</head>
+<body>
+	<h1 id="head"> Menstrual Clock </h1><br>
+	<div class="circle">
+		<div class="t12">12</div>
+		<div class="t3">3</div>
+		<div id="centre"></div>
+		<div class="t6">6</div>
+		<div class="t9">9</div>
+		<div id="hr_hand"></div>
+		<div id="min_hand"></div>
+		<div id="sec_hand"></div>
+	</div>
+	
+	<div class="box">
+	    
+	    
+</div>
+<p>Last period date: <input id="inp" placeholder="Insert only date"></p>
+<p>Period Cycle: <input id="inp1" placeholder="Aapki periods kitne din bad aate h ?"></p><br>
+<button id= "btn" onclick="submit()" name="submit">Submit</button>
+<button id="btn1" onclick="clean()">Clear</button>
+
+<div id="date"></div>
+<div id="year"></div>
+<div id="sentance"> </div>
+
+
+</body>
+<script>
+	var d = new Date();
+
+
+    var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    document.getElementById("date").innerHTML = d.getDate()+ ","+ " "+ months[d.getMonth()]; 
+    document.getElementById("year").innerHTML = (d.getFullYear());
+
+    
+
+
+var hour = document.getElementById("hr_hand");
+var min = document.getElementById("min_hand");
+var sec = document.getElementById("sec_hand");
+
+ 	function clock(){
+ 		var date = new Date();
+  		var hr = date.getHours();
+  		var mn = date.getMinutes();
+  		var sc = date.getSeconds();
+
+  		var hourDeg = (hr * 30) + (0.5* mn);
+  		var minDeg = (mn * 6)+(0.1 * sc);
+  		var secDeg = sc * 6;
+
+
+    	hour.style.transform = 'rotate('+ hourDeg + 'deg)';
+    	min.style.transform = 'rotate(' + minDeg + 'deg)';
+    	sec.style.transform ='rotate(' + secDeg + 'deg)';
+
+       setTimeout(clock, 1000);
+}
+clock();
+
+
+localStorage.setItem("last period date", 8	);
+localStorage.setItem("period cycle", 30);
+
+
+function submit(){
+
+var a = parseInt(document.getElementById("inp").value); 
+var b = parseInt(document.getElementById("inp1").value);
+
+
+var w_date = new Date();
+var c_date = parseInt(w_date.getDate());
+
+if (a < c_date) {
+	var c = (b-c_date) + a;
+	document.getElementById("sentance").innerHTML="Aap ki Periods aane mai "+ c + " din baki h.";
+}
+else if (c_date==b){
+
+	document.getElementById("sentance").innerHTML="Aap ki Periods aane mai "+ a + " din baki h.";
+}
+else if (a > c_date) {
+	var d= a-c_date;
+	document.getElementById("sentance").innerHTML="Aap ki Periods aane mai "+ d + " din baki h.";
+}
+else{
+	snowStorm.snowColor ='black';
+	snowStorm.flakesMaxActive = 200;
+	snowStorm.useTwinkleEffect = true;
+	snowStorm.flakesMax = 128;
+	snowStorm.useMeltEffect = true;
+	document.getElementById("sentance").innerHTML="Congratulations...!!!  Aap ki Periods aa chuke hai.";
+	window.addEventListener("onload", function(){
+		alert("No need to be panic. Just celebrate it.");
+		
+		
+
+
+})
+};
+}
+function clean(){
+document.getElementById("inp").value=" ";
+document.getElementById("inp1").value=" ";
+document.getElementById("sentance").innerHTML=" ";
+}
+</script>
+</html>
